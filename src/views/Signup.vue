@@ -1,5 +1,5 @@
 <template>
-    <div class="home pt-4 mt-4">
+    <div class="home pt-4 mt-4 px-2">
         <v-row>
             <v-col
                 class="col-12 d-flex text-center justify-center flex-wrap flex-column"
@@ -71,7 +71,7 @@
                         <v-text-field
                             filled
                             label="CNPJ"
-                            v-model="name"
+                            v-model="cnpj"
                             :state="getValidationState(validationContext)"
                             class="d-flex justify-content-center mb-3"
                             :error-messages="validationContext.errors[0]"
@@ -86,7 +86,7 @@
                         <v-text-field
                             filled
                             label="Responsável"
-                            v-model="name"
+                            v-model="responsible"
                             :state="getValidationState(validationContext)"
                             class="d-flex justify-content-center mb-3"
                             :error-messages="validationContext.errors[0]"
@@ -182,7 +182,7 @@
                         outlined
                         class="mr-2"
                         width="100%"
-                        @click="$router.push({ name: 'Home' })"
+                        @click="$router.push({ name: 'home' })"
                     >
                         Cancelar
                     </v-btn>
@@ -190,26 +190,25 @@
             </v-col>
             <v-col v-if="!isMobile()"> </v-col>
         </v-row>
-        <v-row>
-            <!-- <v-col class="col-12 d-flex text-center justify-center mt-4">
-                <v-btn outlined class="mr-2">
-                    Entrar
-                </v-btn>
-                <v-btn outlined class="accent" dark>
-                    Criar conta
-                </v-btn>
-            </v-col> -->
-        </v-row>
-        <!-- <Login /> -->
     </div>
 </template>
 
 <script>
-// import Login from "@/components/Login.vue";
 export default {
-    name: "Home",
-    components: {
-        // Login,
+    name: "Signup",
+    data() {
+        return {
+            email: null,
+            password: null,
+            name: null, 
+            cnpj: null,
+            phone: null,
+            responsible: null,
+            address: null,
+            number: null,
+            city: null,
+            uf: null
+        };
     },
     methods: {
         getValidationState({ dirty, validated, valid = null }) {

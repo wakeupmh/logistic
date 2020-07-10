@@ -1,5 +1,5 @@
 <template>
-    <div class="home pt-4 mt-4">
+    <div class="home pt-4 mt-4 px-2">
         <v-row>
             <v-col
                 class="col-12 d-flex text-center justify-center flex-wrap flex-column"
@@ -41,7 +41,7 @@
                         <v-text-field
                             filled
                             label="Senha"
-                            v-model="email"
+                            v-model="password"
                             :state="getValidationState(validationContext)"
                             class="d-flex justify-content-center mb-3"
                             :error-messages="validationContext.errors[0]"
@@ -52,7 +52,7 @@
                         outlined
                         class="mr-2 primary mb-4"
                         dark
-                        @click.stop.prevent="passes(forward)"
+                        @click.stop.prevent="passes(login)"
                         width="100%"
                     >
                         Entrar
@@ -60,7 +60,7 @@
                     <a
                         style="text-decoration:underline;cursor: pointer"
                         class="mt-4"
-                        @click="$router.push({name:'signup'})"
+                        @click="$router.push({ name: 'signup' })"
                     >
                         Criar conta
                     </a>
@@ -68,30 +68,24 @@
             </v-col>
             <v-col v-if="!isMobile()"> </v-col>
         </v-row>
-        <v-row>
-            <!-- <v-col class="col-12 d-flex text-center justify-center mt-4">
-                <v-btn outlined class="mr-2">
-                    Entrar
-                </v-btn>
-                <v-btn outlined class="accent" dark>
-                    Criar conta
-                </v-btn>
-            </v-col> -->
-        </v-row>
-        <!-- <Login /> -->
     </div>
 </template>
 
 <script>
-// import Login from "@/components/Login.vue";
 export default {
     name: "Home",
-    components: {
-        // Login,
+    data() {
+        return {
+            email: null,
+            password: null
+        };
     },
     methods: {
         getValidationState({ dirty, validated, valid = null }) {
             return dirty || validated ? valid : null;
+        },
+        login() {
+            this.$router.push({ name: "dashboard" });
         },
         isMobile() {
             if (

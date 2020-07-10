@@ -8,6 +8,10 @@ h1, h2, h3, h4, h5 {
     font-family: yeseva;
 }
 
+.v-application {
+    background-color: #f6f6f6 !important;
+}
+
 .slide-fade-enter {
   transform: translateX(10px);
   opacity: 0;
