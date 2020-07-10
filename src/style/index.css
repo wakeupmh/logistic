@@ -1,0 +1,23 @@
+@font-face {
+    font-family: yeseva;
+    src: url(yeseva.ttf);
+}
+
+h1, h2, h3, h4, h5 {
+    font-weight: 100;
+    font-family: yeseva;
+}
+
+.slide-fade-enter {
+  transform: translateX(10px);
+  opacity: 0;
+}
+
+.slide-fade-enter-active, .slide-fade-leave-active {
+  transition: all .3s ease;
+}
+
+.slide-fade-leave-to {
+  transform: translateX(-10px);
+  opacity: 0;
+}
