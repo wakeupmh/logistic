@@ -15,7 +15,7 @@
             </v-col>
         </v-row>
         <v-row>
-            <v-col v-if="!isMobile()"> </v-col>
+            <v-col v-if="!mobile"> </v-col>
             <v-col class="text-center">
                 <validation-observer ref="observer" v-slot="{ passes }">
                     <validation-provider
@@ -188,12 +188,13 @@
                     </v-btn>
                 </validation-observer>
             </v-col>
-            <v-col v-if="!isMobile()"> </v-col>
+            <v-col v-if="!mobile"> </v-col>
         </v-row>
     </div>
 </template>
-
 <script>
+import { isMobile } from "@/services";
+
 export default {
     name: "Signup",
     data() {
@@ -214,15 +215,8 @@ export default {
         getValidationState({ dirty, validated, valid = null }) {
             return dirty || validated ? valid : null;
         },
-        isMobile() {
-            if (
-                /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-                    navigator.userAgent
-                )
-            ) {
-                return true;
-            }
-            return false;
+        mounted() {
+            this.mobile = isMobile();
         }
     }
 };

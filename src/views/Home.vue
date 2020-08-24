@@ -15,12 +15,12 @@
             </v-col>
         </v-row>
         <v-row>
-            <v-col v-if="!isMobile()"> </v-col>
+            <v-col v-if="!mobile"> </v-col>
             <v-col class="text-center">
                 <validation-observer ref="observer" v-slot="{ passes }">
                     <validation-provider
                         name="E-mail"
-                        :rules="{ required: true }"
+                        :rules="{ required: true, email: true }"
                         v-slot="validationContext"
                     >
                         <v-text-field
@@ -35,12 +35,13 @@
                     </validation-provider>
                     <validation-provider
                         name="Senha "
-                        :rules="{ required: true }"
+                        :rules="{ required: true, min: 6 }"
                         v-slot="validationContext"
                     >
                         <v-text-field
                             filled
                             label="Senha"
+                            type="password"
                             v-model="password"
                             :state="getValidationState(validationContext)"
                             class="d-flex justify-content-center mb-3"
@@ -66,18 +67,20 @@
                     </a>
                 </validation-observer>
             </v-col>
-            <v-col v-if="!isMobile()"> </v-col>
+            <v-col v-if="!mobile"> </v-col>
         </v-row>
     </div>
 </template>
 
 <script>
+import { isMobile } from "@/services";
 export default {
     name: "Home",
     data() {
         return {
             email: null,
-            password: null
+            password: null,
+            mobile: false
         };
     },
     methods: {
@@ -86,17 +89,10 @@ export default {
         },
         login() {
             this.$router.push({ name: "dashboard" });
-        },
-        isMobile() {
-            if (
-                /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-                    navigator.userAgent
-                )
-            ) {
-                return true;
-            }
-            return false;
         }
+    },
+    mounted() {
+        this.mobile = isMobile();
     }
 };
 </script>

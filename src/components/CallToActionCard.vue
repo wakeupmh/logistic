@@ -10,11 +10,8 @@
                 </v-list-item-subtitle>
             </v-list-item-content>
 
-            <v-list-item-avatar
-                tile
-                size="80"
-            >
-                <v-img :src="getImgUrl(img)" />
+            <v-list-item-avatar tile size="80">
+                <v-img :src="renderImg(img)" />
             </v-list-item-avatar>
         </v-list-item>
 
@@ -24,7 +21,13 @@
                 style="color:#333"
                 v-for="(action, i) in actions"
                 :key="i"
-                @click="$router.push({ name: action.routeName })"
+                @click="
+                    $router.push({
+                        name: action.routeName,
+                        query: { tipo: action.query }
+                    })
+                "
+                :style="`color:${action.color ? action.color : '#444'};`"
             >
                 {{ action.title }}
             </v-btn>
@@ -32,6 +35,8 @@
     </v-card>
 </template>
 <script>
+import { getImgUrl } from "@/services";
+
 export default {
     props: {
         title: {
@@ -51,9 +56,9 @@ export default {
         }
     },
     methods: {
-        getImgUrl(fileName) {
-            return require(`../assets/${fileName}`);
+        renderImg(img) {
+            return getImgUrl(img);
         }
     }
-}
+};
 </script>

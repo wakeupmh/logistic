@@ -4,7 +4,7 @@
             <v-col class="col-12 d-flex text-center justify-center">
                 <v-img
                     src="@/assets/dashboard.svg"
-                    :max-width="isMobile() ? '200' : '350'"
+                    :max-width="mobile ? '200' : '350'"
                 />
             </v-col>
             <v-col class="col-12 d-flex text-center justify-center flex-column">
@@ -26,10 +26,12 @@
 </template>
 <script>
 import CallToActionCard from "@/components/CallToActionCard.vue";
+import { isMobile } from "@/services";
 
 export default {
     data() {
         return {
+            mobile: false,
             callToActions: [
                 {
                     title: "Pedidos",
@@ -39,12 +41,14 @@ export default {
                     actions: [
                         {
                             title: "Visualizar todos",
-                            routeName: ""
+                            routeName: "list",
+                            query: "pedido"
                         },
                         {
                             title: "Adicionar novo",
-                            routeName: "",
-                            color: "#"
+                            routeName: "insert",
+                            query: "pedido",
+                            color: "#673ab7"
                         }
                     ]
                 },
@@ -56,12 +60,14 @@ export default {
                     actions: [
                         {
                             title: "Visualizar todas",
-                            routeName: ""
+                            routeName: "list",
+                            query: "expedicao"
                         },
                         {
                             title: "Adicionar nova",
-                            routeName: "",
-                            color: "#"
+                            routeName: "insert",
+                            query: "expedicao",
+                            color: "#673ab7"
                         }
                     ]
                 },
@@ -73,12 +79,14 @@ export default {
                     actions: [
                         {
                             title: "Visualizar todas",
-                            routeName: ""
+                            routeName: "list",
+                            query: "analise"
                         },
                         {
                             title: "Adicionar nova",
-                            routeName: "",
-                            color: "#"
+                            routeName: "insert",
+                            query: "analise",
+                            color: "#673ab7"
                         }
                     ]
                 }
@@ -88,17 +96,8 @@ export default {
     components: {
         CallToActionCard
     },
-    methods: {
-        isMobile() {
-            if (
-                /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-                    navigator.userAgent
-                )
-            ) {
-                return true;
-            }
-            return false;
-        }
+    mounted() {
+        this.mobile = isMobile();
     }
 };
 </script>
